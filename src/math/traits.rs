@@ -47,8 +47,15 @@ where
 {
     x.combination(y)
 }
-/*
-//rustで定数をgenericにできないため。
-pub trait GenericNumber {
-    fn number() -> usize;
-}*/
+
+pub trait Delta<T0, T1> {
+    type Output;
+    fn delta(&self, period: T0, values: T1) -> Self::Output;
+}
+
+pub fn delta<T0, T1, T2>(filter: T0, period: T1, values: T2) -> <T0 as Delta<T1, T2>>::Output
+where
+    T0: Delta<T1, T2>,
+{
+    filter.delta(period, values)
+}

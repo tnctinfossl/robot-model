@@ -33,13 +33,34 @@ impl Vec2Rad {
     //thetaを[0..2PI]の範囲に縮小する
     #[inline(always)]
     #[allow(dead_code)]
-    pub fn shrink(&self) -> Vec2Rad {
+    pub fn shrink(self) -> Vec2Rad {
         let two_pi = 2.0 * std::f32::consts::PI;
         if self.theta < 0.0 {
             vec2rad(self.x, self.y, (self.theta % two_pi) + two_pi)
         } else {
             vec2rad(self.x, self.y, self.theta % two_pi)
         }
+    }
+
+    //前回の値をもとに、[0..2PI]から値域を拡大する
+    #[inline(always)]
+    #[allow(dead_code)]
+    pub fn expend(self, last: &Vec2Rad) -> Self {
+        let two_pi = 2.0 * std::f32::consts::PI;
+        let theta_offset = (self.theta / two_pi).trunc() * two_pi;
+        let theta_now = self.theta % two_pi;
+        let theta_last = last.theta % two_pi;
+
+        let theta = if (theta_now - theta_last).abs() < std::f32::consts::PI {
+            (theta_now - theta_last) + theta_offset
+        } else {
+            if theta_now > theta_last {
+                (theta_now - theta_last - two_pi) + theta_offset
+            } else {
+                (theta_now - theta_last + two_pi) + theta_offset
+            }
+        };
+        vec2rad(self.x, self.y, theta)
     }
 
     //差分方程式を解く (p0-p1)/t
