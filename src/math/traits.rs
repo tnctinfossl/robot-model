@@ -23,39 +23,3 @@ where
 {
     a.cross(b)
 }
-
-pub trait Factorial {
-    type Output;
-    fn factorial(self) -> Self::Output;
-}
-#[inline(always)]
-pub fn factorial<T>(x: T) -> <T as Factorial>::Output
-where
-    T: Factorial,
-{
-    x.factorial()
-}
-
-pub trait Combination {
-    type Output;
-    fn combination(self, n: Self) -> Self::Output;
-}
-#[inline(always)]
-pub fn combination<T>(x: T, y: T) -> <T as Combination>::Output
-where
-    T: Combination,
-{
-    x.combination(y)
-}
-
-pub trait Delta<T0, T1> {
-    type Output;
-    fn delta(&self, period: T0, values: T1) -> Self::Output;
-}
-
-pub fn delta<T0, T1, T2>(filter: T0, period: T1, values: T2) -> <T0 as Delta<T1, T2>>::Output
-where
-    T0: Delta<T1, T2>,
-{
-    filter.delta(period, values)
-}

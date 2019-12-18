@@ -1,4 +1,4 @@
-pub mod binomial;
+pub mod pascal;
 pub mod traits;
 pub mod vec2;
 pub mod vec2rad;
@@ -7,3 +7,4 @@ pub use vec2::*;
 pub use vec2rad::*;
 pub mod filter;
 pub use filter::*;
+pub use pascal::*;
