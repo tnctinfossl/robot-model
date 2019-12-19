@@ -7,9 +7,6 @@ mod tests {
 }
 
 pub mod math;
-pub mod physics;
-pub mod robot;
-pub mod traits;
 pub use math::*;
-pub use robot::*;
+pub mod object;
 pub use traits::*;

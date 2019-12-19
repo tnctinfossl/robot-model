@@ -1,4 +1,5 @@
-use super::*;
+use super::traits::*;
+use crate::math::*;
 use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -41,7 +42,7 @@ impl Simulate<f32> for Ball {
     }
 }
 
-impl Energy for Robot {
+impl Energy for Ball {
     type Output = f32;
     fn energy(&self) -> f32 {
         dot(vec2(self.mass, self.mass), self.velocity.powi(2)) / 2.0
